@@ -13,6 +13,8 @@
           mads-hartmann.bash-ide-vscode
           tamasfe.even-better-toml
           zainchen.json
+          ms-python.python
+          ms-vscode-remote.remote-ssh-edit
         ];
       };
     };

@@ -13,11 +13,11 @@
     wireguard-tools
     remmina
     teamviewer
-    #rustdesk
+    rustdesk
     winbox4
     ansible
     virtualbox
-    #vagrant
+    vagrant
     mc
     postman
   ];

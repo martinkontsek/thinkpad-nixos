@@ -15,7 +15,7 @@
 
   # Program Options
   browser = "firefox"; # Set Default Browser (firefox/brave/google-chrome)
-  terminal = "ghostty"; # Set Default System Terminal
+  terminal = "kitty"; # Set Default System Terminal
   keyboardLayout = "us,sk";
   consoleKeyMap = "us";
 
@@ -30,7 +30,8 @@
   printEnable = true;
 
   # Set Stylix Image
-  stylixImage = ../../wallpapers/25.11.jpg;
+  stylixImage = ../../wallpapers/25.05.jpg;
+  wallpaperImage = ../../wallpapers/25.11.jpg;
 
   # Set Waybar
   # Includes alternates such as:

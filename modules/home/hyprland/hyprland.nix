@@ -9,6 +9,7 @@
     extraMonitorSettings
     keyboardLayout
     stylixImage
+    wallpaperImage
     ;
 in {
   home.packages = with pkgs; [
@@ -57,7 +58,7 @@ in {
         "nm-applet --indicator"
         "pypr &"
         "swww-daemon &"
-        "sleep 1.5 && swww img ${stylixImage}"
+        "sleep 1.5 && swww img ${wallpaperImage}"
       ];
 
       input = {
