@@ -20,5 +20,6 @@
     vagrant
     mc
     postman
+    nmap
   ];
 }

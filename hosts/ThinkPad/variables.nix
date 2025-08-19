@@ -15,7 +15,7 @@
 
   # Program Options
   browser = "firefox"; # Set Default Browser (firefox/brave/google-chrome)
-  terminal = "kitty"; # Set Default System Terminal
+  terminal = "ghostty"; # Set Default System Terminal
   keyboardLayout = "us,sk";
   consoleKeyMap = "us";
 
