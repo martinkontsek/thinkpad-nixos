@@ -21,5 +21,9 @@
     mc
     postman
     nmap
+    python313
+    python313Packages.requests
+    python313Packages.flask
+    python313Packages.fastapi
   ];
 }
