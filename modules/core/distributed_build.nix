@@ -10,6 +10,9 @@
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
       }
     ];
+    settings = {
+      builders-use-substitutes = true;
+    };
   };
   programs.ssh.extraConfig = ''
     Host nixos-builder
@@ -17,6 +20,6 @@
       Port 22
       User root
       IdentitiesOnly yes
-      #IdentityFile /root/.ssh/id_builder
+      IdentityFile /root/.ssh/id_builder
   '';
 }
