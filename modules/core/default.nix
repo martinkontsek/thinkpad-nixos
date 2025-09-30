@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./boot.nix
+    ./distributed_build.nix
     ./flatpak.nix
     ./fonts.nix
     #./greetd.nix
