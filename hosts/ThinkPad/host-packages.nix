@@ -25,5 +25,9 @@
     python313Packages.requests
     python313Packages.flask
     python313Packages.fastapi
+    gnome-disk-utility
+    nwg-displays
+    putty
+    kubectl
   ];
 }
