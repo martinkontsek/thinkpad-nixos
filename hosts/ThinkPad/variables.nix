@@ -5,9 +5,15 @@
 
   # Hyprland Settings
   # ex "monitor=HDMI-A-1, 1920x1080@60,auto,1"
-  #
+  #  monitor = Virtual-1, 1920x1080@60,auto,1
+
   extraMonitorSettings = "
-    monitor = Virtual-1, 1920x1080@60,auto,1
+    monitor = desc: Lenovo Group Limited 0x40BA, 1920x1080@60, 0x0, 1
+    monitor = desc: HP Inc. HP Z24n G2 6CM83720LY, 1920x1200, 1920x0, 1
+    monitor = desc: HP Inc. HP Z24n G2 6CM90923MC, 1920x1200, 3840x0, 1
+    monitor = desc: Philips Consumer Electronics Company PHL 272S1 UK02249049935, 1920x1080, 1920x0, 1
+    monitor = desc: Philips Consumer Electronics Company PHL 272S1 UK02249049933, 1920x1080, 3840x0, 1, transform, 1 
+    monitor = , preferred, auto, 1, mirror, eDP-1
     ";
 
   # Waybar Settings
