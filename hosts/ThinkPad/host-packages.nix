@@ -29,5 +29,6 @@
     nwg-displays
     putty
     kubectl
+    _7zz
   ];
 }
