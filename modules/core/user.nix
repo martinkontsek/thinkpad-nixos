@@ -35,6 +35,7 @@ in {
       "networkmanager"
       "scanner"
       "wheel"
+      "wireshark"
     ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
