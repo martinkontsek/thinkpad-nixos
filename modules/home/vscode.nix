@@ -9,13 +9,16 @@
           bbenoist.nix
           jeff-hykin.better-nix-syntax
           ms-vscode.cpptools-extension-pack
-          vscodevim.vim # Vim emulation
+          #vscodevim.vim # Vim emulation
           mads-hartmann.bash-ide-vscode
           tamasfe.even-better-toml
           zainchen.json
           ms-python.python
           ms-vscode-remote.remote-ssh-edit
         ];
+        userSettings = {
+          "workbench.colorTheme" = "Dark";
+        };
       };
     };
   };
