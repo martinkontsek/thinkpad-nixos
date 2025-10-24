@@ -1,4 +1,4 @@
-{host, ...}: let
+{host, pkgs, ...}: let
   inherit (import ../../hosts/${host}/variables.nix) printEnable;
 in {
   services = {
@@ -6,6 +6,7 @@ in {
       enable = printEnable;
       drivers = [
         # pkgs.hplipWithPlugin
+        pkgs.canon-cups-ufr2
       ];
     };
     avahi = {
