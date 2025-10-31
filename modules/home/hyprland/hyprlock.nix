@@ -20,7 +20,7 @@
           path = "/home/${username}/.config/face.jpg";
           size = 150;
           border_size = 4;
-          border_color = "rgb(0C96F9)";
+          border_color = "rgb(B296C9)";
           rounding = -1; # Negative means circle
           position = "0, 200";
           halign = "center";
