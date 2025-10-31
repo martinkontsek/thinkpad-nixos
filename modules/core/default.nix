@@ -22,6 +22,7 @@
     ./user.nix
     ./virtualisation.nix
     ./wireshark.nix
+    ./winbox.nix
     ./xserver.nix
     inputs.stylix.nixosModules.stylix
   ];

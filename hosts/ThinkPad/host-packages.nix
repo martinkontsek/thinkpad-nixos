@@ -14,7 +14,6 @@
     remmina
     teamviewer
     rustdesk
-    winbox4
     ansible
     virtualbox
     vagrant
