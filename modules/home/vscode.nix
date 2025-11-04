@@ -17,7 +17,7 @@
           ms-vscode-remote.remote-ssh-edit
         ];
         userSettings = {
-          "workbench.colorTheme" = "Dark";
+          "workbench.colorTheme" = "Visual Studio Dark";
         };
       };
     };
