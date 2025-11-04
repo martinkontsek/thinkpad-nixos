@@ -29,5 +29,7 @@
     putty
     kubectl
     _7zz
+    inetutils
+    opentofu
   ];
 }
