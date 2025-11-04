@@ -41,7 +41,7 @@
     tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
     htop # Simple Terminal Based System Monitor
     hyprpicker # Color Picker
-    eog # For Image Viewing
+    loupe # For Image Viewing
     inxi # CLI System Information Tool
     killall # For Killing All Instances Of Programs
     libnotify # For Notifications
@@ -70,6 +70,7 @@
     wget # Tool For Fetching Files With Links
     ytmdl # Tool For Downloading Audio From YouTube
     wireshark # Packet capture
-    winbox4
+    winbox4 # Mikrotik config app
+    evince # PDF viewer from GNOME
   ];
 }
