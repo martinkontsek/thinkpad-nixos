@@ -72,5 +72,6 @@
     wireshark # Packet capture
     winbox4 # Mikrotik config app
     evince # PDF viewer from GNOME
+    bambu-studio # BambuLab Slicer
   ];
 }

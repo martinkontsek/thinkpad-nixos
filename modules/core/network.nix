@@ -21,6 +21,8 @@
       allowedUDPPorts = [
         59010
         59011
+        1900 # for Bambu Studio
+        2021 # for Bambu Studio
       ];
     };
   };
