@@ -78,6 +78,6 @@
     gtk-single-instance = true
     unfocused-split-opacity = 0.5
     quick-terminal-position = center
-    shell-integration-features = cursor,sudo,ssh-terminfo,ssh-env
+    shell-integration-features = cursor,sudo,ssh-env
   '';
 }
