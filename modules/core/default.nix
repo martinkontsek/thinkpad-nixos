@@ -25,5 +25,6 @@
     ./winbox.nix
     ./xserver.nix
     inputs.stylix.nixosModules.stylix
+    ./zerotier.nix
   ];
 }
