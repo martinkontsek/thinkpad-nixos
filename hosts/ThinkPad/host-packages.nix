@@ -7,10 +7,6 @@
     restic
     rclone
     dropbox
-    zerotierone
-    openfortivpn
-    openvpn
-    wireguard-tools
     remmina
     teamviewer
     rustdesk
