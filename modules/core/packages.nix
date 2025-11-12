@@ -77,5 +77,6 @@
     openfortivpn # Forti VPN
     openvpn # OpenVPN
     wireguard-tools # Wireguard VPN
+    gnome-calculator # Calculator
   ];
 }
