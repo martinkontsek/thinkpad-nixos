@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     mission-center
     onlyoffice-desktopeditors
-    teams-for-linux
     enpass
     restic
     rclone
