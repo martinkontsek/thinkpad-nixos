@@ -78,5 +78,7 @@
     openvpn # OpenVPN
     wireguard-tools # Wireguard VPN
     gnome-calculator # Calculator
+    transmission_4-gtk # BT client
+    progress # show progress of coreutils programs
   ];
 }
