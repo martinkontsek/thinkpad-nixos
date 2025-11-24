@@ -80,5 +80,10 @@
     gnome-calculator # Calculator
     transmission_4-gtk # BT client
     progress # show progress of coreutils programs
+    (python313.withPackages (python-pkgs: with python-pkgs; [
+      requests
+      flask
+      fastapi
+    ]))
   ];
 }
