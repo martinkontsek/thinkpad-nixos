@@ -36,6 +36,7 @@ in {
       "scanner"
       "wheel"
       "wireshark"
+      "vboxusers"
     ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;

@@ -10,7 +10,6 @@
     teamviewer
     rustdesk
     ansible
-    virtualbox
     vagrant
     mc
     postman

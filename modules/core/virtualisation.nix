@@ -4,6 +4,7 @@
     libvirtd.enable = true;
     docker.enable = true;
     podman.enable = false;
+    virtualbox.host.enable = true;
   };
   programs = {
     virt-manager.enable = true;
