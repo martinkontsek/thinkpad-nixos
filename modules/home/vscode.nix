@@ -11,10 +11,10 @@
           ms-vscode.cpptools-extension-pack
           #vscodevim.vim # Vim emulation
           mads-hartmann.bash-ide-vscode
-          tamasfe.even-better-toml
           zainchen.json
           ms-python.python
-          ms-vscode-remote.remote-ssh-edit
+          ms-vscode-remote.remote-ssh
+          ms-vscode.remote-explorer
         ];
         userSettings = {
           "workbench.colorTheme" = "Visual Studio Dark";
