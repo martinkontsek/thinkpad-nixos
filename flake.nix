@@ -8,17 +8,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix";
     #stylix.url = "github:danth/stylix/release-25.05";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
+  outputs = {nixpkgs, nixpkgs-master, ...} @ inputs: let
     system = "x86_64-linux";
     host = "ThinkPad";
     profile = "amd";
     username = "martin";
+    pkgs-master = import nixpkgs-master { inherit system; config.allowUnfree = true; };
   in {
     nixosConfigurations = {
       amd = nixpkgs.lib.nixosSystem {
@@ -28,6 +30,7 @@
           inherit username;
           inherit host;
           inherit profile;
+          inherit pkgs-master;
         };
         modules = [./profiles/amd];
       };

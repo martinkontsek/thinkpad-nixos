@@ -70,7 +70,6 @@
     wget # Tool For Fetching Files With Links
     ytmdl # Tool For Downloading Audio From YouTube
     wireshark # Packet capture
-    winbox4 # Mikrotik config app
     evince # PDF viewer from GNOME
     bambu-studio # BambuLab Slicer
     zerotierone # ZeroTier VPN
