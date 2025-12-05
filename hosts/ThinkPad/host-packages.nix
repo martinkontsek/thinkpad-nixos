@@ -1,26 +1,26 @@
 {pkgs, pkgs-master, ...}: {
-  environment.systemPackages = [
-    pkgs.mission-center
-    pkgs.onlyoffice-desktopeditors
-    pkgs.enpass
-    pkgs.restic
-    pkgs.rclone
-    pkgs.dropbox
-    pkgs.remmina
-    pkgs.teamviewer
-    pkgs.rustdesk
-    pkgs.ansible
-    pkgs.vagrant
-    pkgs.mc
-    pkgs.postman
-    pkgs.nmap
-    pkgs.gnome-disk-utility
-    pkgs.nwg-displays
-    pkgs.putty
-    pkgs.kubectl
-    pkgs._7zz
-    pkgs.inetutils
-    pkgs.opentofu
+  environment.systemPackages = with pkgs; [
+    mission-center
+    onlyoffice-desktopeditors
+    enpass
+    restic
+    rclone
+    dropbox
+    remmina
+    teamviewer
+    rustdesk
+    ansible
+    vagrant
+    mc
+    postman
+    nmap
+    gnome-disk-utility
+    nwg-displays
+    putty
+    kubectl
+    _7zz
+    inetutils
+    opentofu
     pkgs-master.winbox4 # Mikrotik config app
   ];
 }
