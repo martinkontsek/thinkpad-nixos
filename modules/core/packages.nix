@@ -81,6 +81,9 @@
     progress # show progress of coreutils programs
     sshuttle # ssh tunnel
     devenv
+    yt-dlp # video downloader
+    powertop # Power usage utility
+    libreoffice-fresh # Office Suite
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
@@ -88,6 +91,7 @@
       scapy
       paramiko
       netmiko
+      tkinter
     ]))
   ];
 }
