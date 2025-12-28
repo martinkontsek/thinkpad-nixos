@@ -84,6 +84,7 @@
     yt-dlp # video downloader
     powertop # Power usage utility
     libreoffice-fresh # Office Suite
+    talosctl # Talos Linux control tool
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
