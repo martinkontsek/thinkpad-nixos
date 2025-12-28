@@ -4,9 +4,12 @@ in {
   services = {
     printing = {
       enable = printEnable;
-      drivers = [
-        # pkgs.hplipWithPlugin
-        pkgs.canon-cups-ufr2
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+        hplipWithPlugin
+        canon-cups-ufr2
+        canon-capt
       ];
     };
     avahi = {
