@@ -11,7 +11,6 @@
     hyprlock.enable = true; #resolve pam issue https://gitlab.com/Zaney/zaneyos/-/issues/164
     fuse.userAllowOther = true;
     mtr.enable = true;
-    adb.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -85,6 +84,7 @@
     powertop # Power usage utility
     libreoffice-fresh # Office Suite
     talosctl # Talos Linux control tool
+    android-tools
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
