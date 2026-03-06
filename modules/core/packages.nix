@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, pkgs-master, ...}: {
   programs = {
     neovim = {
       enable = true;
@@ -76,7 +76,7 @@
     openvpn # OpenVPN
     wireguard-tools # Wireguard VPN
     gnome-calculator # Calculator
-    transmission_4-gtk # BT client
+    qbittorrent # BT client
     progress # show progress of coreutils programs
     sshuttle # ssh tunnel
     devenv
@@ -85,14 +85,24 @@
     libreoffice-fresh # Office Suite
     talosctl # Talos Linux control tool
     android-tools
+    prusa-slicer
+    orca-slicer
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
       fastapi
+      fastapi-cli
       scapy
       paramiko
       netmiko
       tkinter
+      fpdf2
+      pypdf
+      pipx
+      ansible
+      kivy # For Kivy GUI Framework
+      kivy-garden # For Kivy GUI Builder
+      qrcode # For QR Code Generation
     ]))
   ];
 }
