@@ -50,7 +50,7 @@
     mpv # Incredible Video Player
     ncdu # Disk Usage Analyzer With Ncurses Interface
     nitch # small fetch util
-    nixfmt-rfc-style # Nix Formatter
+    nixfmt # Nix Formatter
     onefetch #shows current build info and stats
     pavucontrol # For Editing Audio Levels & Devices
     pciutils # Collection Of Tools For Inspecting PCI Devices
