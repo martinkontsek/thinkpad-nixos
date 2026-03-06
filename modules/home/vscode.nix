@@ -26,6 +26,9 @@
           moshfeu.compare-folders
           golang.go
           redhat.vscode-yaml
+          tomoki1207.pdf
+          github.copilot
+          github.copilot-chat
         ];
         userSettings = {
           "workbench.colorTheme" = "Visual Studio Dark";
