@@ -3,20 +3,24 @@
 in {
   services = {
     printing = {
-      enable = printEnable;
+      enable = true;
       drivers = with pkgs; [
-        cups-filters
-        cups-browsed
         hplipWithPlugin
         canon-cups-ufr2
         canon-capt
+        gutenprint
+        gutenprintBin
       ];
+      browsing = true;
     };
     avahi = {
-      enable = printEnable;
+      enable = true;
       nssmdns4 = true;
+      publish.enable = true;
+      publish.workstation = true;
+      publish.addresses = true;
       openFirewall = true;
     };
-    ipp-usb.enable = printEnable;
+    ipp-usb.enable = true;
   };
 }
