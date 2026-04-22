@@ -87,6 +87,14 @@
     android-tools
     prusa-slicer
     orca-slicer
+    ipmitool
+    smartmontools
+    pigz # Parallel gzip
+    speedtest-cli # Speedtest.net CLI
+    arp-scan # Network Scanner
+    angryipscanner # Network Scanner
+    chromedriver # For Selenium WebDriver
+    geckodriver # For Selenium WebDriver
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
@@ -103,6 +111,8 @@
       kivy # For Kivy GUI Framework
       kivy-garden # For Kivy GUI Builder
       qrcode # For QR Code Generation
+      selenium # For Web Automation
+      pyotp # For 2FA Code Generation
     ]))
   ];
 }
