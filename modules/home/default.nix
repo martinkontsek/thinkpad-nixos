@@ -9,6 +9,7 @@ in {
     ./btop.nix
     ./cava.nix
     ./chrome.nix
+    ./dropbox.nix
     ./emoji.nix
     ./eza.nix
     ./fastfetch
