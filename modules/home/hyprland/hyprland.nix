@@ -13,7 +13,7 @@
     ;
 in {
   home.packages = with pkgs; [
-    swww
+    awww
     grim
     slurp
     wl-clipboard
@@ -52,13 +52,13 @@ in {
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user start hyprpolkitagent"
-        "killall -q swww;sleep .5 && swww init"
+        "killall -q awww;sleep .5 && awww init"
         "killall -q waybar;sleep .5 && waybar"
         "killall -q swaync;sleep .5 && swaync"
         "nm-applet --indicator"
         "pypr &"
-        "swww-daemon &"
-        "sleep 1.5 && swww img ${wallpaperImage}"
+        "awww-daemon &"
+        "sleep 1.5 && awww img ${wallpaperImage}"
       ];
 
       input = {
