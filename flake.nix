@@ -9,18 +9,20 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    nixpkgs-custom.url = "github:martinkontsek/nixpkgs/update-winbox-4.1";
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix";
     #stylix.url = "github:danth/stylix/release-25.05";
   };
 
-  outputs = {nixpkgs, nixpkgs-master, ...} @ inputs: let
+  outputs = {nixpkgs, nixpkgs-master, nixpkgs-custom, ...} @ inputs: let
     system = "x86_64-linux";
     host = "ThinkPad";
     profile = "amd";
     username = "martin";
     pkgs-master = import nixpkgs-master { inherit system; config.allowUnfree = true; };
+    pkgs-custom = import nixpkgs-custom { inherit system; config.allowUnfree = true; };
   in {
     nixosConfigurations = {
       amd = nixpkgs.lib.nixosSystem {
@@ -31,6 +33,7 @@
           inherit host;
           inherit profile;
           inherit pkgs-master;
+          inherit pkgs-custom;
         };
         modules = [./profiles/amd];
       };
