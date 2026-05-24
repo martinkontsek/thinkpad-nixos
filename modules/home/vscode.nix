@@ -32,6 +32,7 @@
         ];
         userSettings = {
           "workbench.colorTheme" = "Visual Studio Dark";
+          "editor.wordWrap" = "on";
         };
       };
     };
