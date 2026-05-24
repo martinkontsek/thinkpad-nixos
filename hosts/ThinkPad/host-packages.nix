@@ -1,14 +1,12 @@
-{pkgs, pkgs-master, ...}: {
+{pkgs, pkgs-master, pkgs-custom, ...}: {
   environment.systemPackages = with pkgs; [
     mission-center
     onlyoffice-desktopeditors
-    enpass
+    pkgs-master.enpass
     restic
     rclone
     dropbox
     remmina
-    teamviewer
-    rustdesk
     ansible
     vagrant
     mc

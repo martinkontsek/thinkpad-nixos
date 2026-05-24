@@ -19,14 +19,15 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  services.teamviewer.enable = true;  # TeamViewer remote desktop software
+
   environment.systemPackages = with pkgs; [
     appimage-run # Needed For AppImage Support
     bottom # btop like util
     brave # Brave Browser
     brightnessctl # For Screen Brightness Control
-    #cmatrix # Matrix Movie Effect In Terminal
+    cmatrix # Matrix Movie Effect In Terminal
     cowsay # Great Fun Terminal Program
-    #docker-compose # Allows Controlling Docker From A Single File
     duf # Utility For Viewing Disk Usage In Terminal
     dysk # disk usage util
     eza # Beautiful ls Replacement
@@ -64,7 +65,6 @@
     unrar # Tool For Handling .rar Files
     unzip # Tool For Handling .zip Files
     usbutils # Good Tools For USB Devices
-    #v4l-utils # Used For Things Like OBS Virtual Camera
     waypaper # backup wallpaper GUI
     wget # Tool For Fetching Files With Links
     ytmdl # Tool For Downloading Audio From YouTube
@@ -95,6 +95,8 @@
     angryipscanner # Network Scanner
     chromedriver # For Selenium WebDriver
     geckodriver # For Selenium WebDriver
+    rustdesk # Remote Desktop Software
+    heimdall # For Samsung Device Management
     (python313.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
@@ -113,6 +115,8 @@
       qrcode # For QR Code Generation
       selenium # For Web Automation
       pyotp # For 2FA Code Generation
+      playwright # For Web Automation
     ]))
   ];
+  services.udev.packages = [ pkgs.heimdall ];
 }
