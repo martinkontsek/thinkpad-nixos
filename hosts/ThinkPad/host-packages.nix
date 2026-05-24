@@ -19,6 +19,6 @@
     _7zz
     inetutils
     opentofu
-    pkgs-master.winbox4 # Mikrotik config app
+    winbox4 # Mikrotik config app
   ];
 }
