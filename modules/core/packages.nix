@@ -70,7 +70,7 @@
     ytmdl # Tool For Downloading Audio From YouTube
     wireshark # Packet capture
     evince # PDF viewer from GNOME
-    bambu-studio # BambuLab Slicer
+    #bambu-studio # BambuLab Slicer
     zerotierone # ZeroTier VPN
     openfortivpn # Forti VPN
     openvpn # OpenVPN
@@ -95,9 +95,11 @@
     angryipscanner # Network Scanner
     chromedriver # For Selenium WebDriver
     geckodriver # For Selenium WebDriver
-    rustdesk # Remote Desktop Software
+    # rustdesk # Remote Desktop Software
     heimdall # For Samsung Device Management
-    (python313.withPackages (python-pkgs: with python-pkgs; [
+    winboat # Win Apps On Linux
+    openssl # For Generating SSL Certificates
+    (python314.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
       fastapi
@@ -108,7 +110,7 @@
       tkinter
       fpdf2
       pypdf
-      pipx
+      # pipx
       ansible
       kivy # For Kivy GUI Framework
       kivy-garden # For Kivy GUI Builder
@@ -116,6 +118,7 @@
       selenium # For Web Automation
       pyotp # For 2FA Code Generation
       playwright # For Web Automation
+      pynetbox # For NetBox API Interaction
     ]))
   ];
   services.udev.packages = [ pkgs.heimdall ];
