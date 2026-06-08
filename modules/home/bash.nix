@@ -10,6 +10,7 @@
     '';
     shellAliases = {
       sv = "sudo nvim";
+      finfo = "nh os info";
       fr = "nh os switch --hostname ${profile}";
       fu = "nh os switch --hostname ${profile} --update";
       zu = "sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/releases/latest/download/install-zaneyos.sh)";

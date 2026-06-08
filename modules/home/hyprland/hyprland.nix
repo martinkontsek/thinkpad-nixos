@@ -45,6 +45,7 @@ in {
     xwayland = {
       enable = true;
     };
+    configType = "hyprlang";
     settings = {
       exec-once = [
         "wl-paste --type text --watch cliphist store # Stores only text data"

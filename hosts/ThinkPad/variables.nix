@@ -37,7 +37,7 @@
 
   # Set Stylix Image
   stylixImage = ../../wallpapers/25.05.jpg;
-  wallpaperImage = ../../wallpapers/25.11.jpg;
+  wallpaperImage = ../../wallpapers/26.11.jpg;
 
   # Set Waybar
   # Includes alternates such as:
