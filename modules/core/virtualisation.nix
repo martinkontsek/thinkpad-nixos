@@ -5,7 +5,7 @@
     docker.enable = true;
     podman.enable = false;
     virtualbox.host.enable = true;
-    virtualbox.host.package = pkgs-custom.virtualbox;
+    # virtualbox.host.package = pkgs-custom.virtualbox;
   };
   programs = {
     virt-manager.enable = true;
