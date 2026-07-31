@@ -19,6 +19,5 @@
     _7zz
     inetutils
     opentofu
-    winbox4 # Mikrotik config app
   ];
 }

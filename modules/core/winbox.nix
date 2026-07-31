@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, pkgs-custom, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   programs.winbox = {
