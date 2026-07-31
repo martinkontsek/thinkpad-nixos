@@ -97,7 +97,7 @@
     geckodriver # For Selenium WebDriver
     # rustdesk # Remote Desktop Software
     heimdall # For Samsung Device Management
-    winboat # Win Apps On Linux
+    # winboat # Win Apps On Linux
     openssl # For Generating SSL Certificates
     (python314.withPackages (python-pkgs: with python-pkgs; [
       requests

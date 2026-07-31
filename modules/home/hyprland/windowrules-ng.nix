@@ -22,22 +22,6 @@ in {
       rule = float(true), match:modal:1
       rule = center(true), match:modal:1
 
-        windowrulev2 = workspace special:6, class:^(winboat)$
-
-        windowrulev2 = workspace 1, class:^winboat-.*$
-        windowrulev2 = suppressevent fullscreen maximize activate activatefocus, class:^winboat-.*$
-        windowrulev2 = noinitialfocus, class:^winboat-.*$
-        windowrulev2 = fullscreen, class:^winboat-.*$
-
-        windowrulev2 = noanim, class:^winboat-.*$
-        windowrulev2 = norounding, class:^winboat-.*$
-        windowrulev2 = noshadow, class:^winboat-.*$
-        windowrulev2 = noblur, class:^winboat-.*$
-        windowrulev2 = xray 0, class:^winboat-.*$
-        windowrulev2 = opaque, class:^winboat-.*$
-        windowrulev2 = nodim, class:^winboat-.*$
-        windowrulev2 = forcergbx, xwayland:1, class:^(?!winboat-).+$
-
         windowrule {
           name = WinBoat
           float = on

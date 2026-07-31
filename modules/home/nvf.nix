@@ -157,17 +157,11 @@
         zig.enable = true;
         python.enable = true;
         markdown.enable = true;
-        ts = {
-          enable = true;
-          lsp.enable = true;
-          format.type = ["prettierd"];
-          extensions.ts-error-translator.enable = true;
-        };
         html.enable = true;
         lua.enable = true;
         css = {
           enable = false;
-          format.type = "prettierd";
+          format.type = ["prettier"];
         };
         typst.enable = true;
         rust = {
