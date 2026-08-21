@@ -15,4 +15,6 @@
     bluetooth.powerOnBoot = true;
   };
   local.hardware-clock.enable = false;
+
+  services.fprintd.enable = true;
 }
