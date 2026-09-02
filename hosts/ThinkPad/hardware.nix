@@ -10,8 +10,11 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "uas" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "thinkpad_acpi" ];
   boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig = ''
+    options thinkpad_acpi fan_control=1
+  '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/b763d9b6-71f5-4b7d-ad87-2021a02d2c92";
