@@ -4,8 +4,8 @@
     ./distributed_build.nix
     ./flatpak.nix
     ./fonts.nix
-    #./greetd.nix
     ./hardware.nix
+    ./lldpd.nix
     ./network.nix
     ./nfs.nix
     ./nh.nix

@@ -38,7 +38,6 @@
     gimp # Great Photo Editor
     mesa-demos # Needed for inxi -G GPU info
     gping #graphical ping
-    tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
     htop # Simple Terminal Based System Monitor
     hyprpicker # Color Picker
     loupe # For Image Viewing
@@ -50,7 +49,6 @@
     lshw # Detailed Hardware Information
     mpv # Incredible Video Player
     ncdu # Disk Usage Analyzer With Ncurses Interface
-    nitch # small fetch util
     nixfmt # Nix Formatter
     onefetch #shows current build info and stats
     pavucontrol # For Editing Audio Levels & Devices
@@ -70,7 +68,6 @@
     ytmdl # Tool For Downloading Audio From YouTube
     wireshark # Packet capture
     evince # PDF viewer from GNOME
-    #bambu-studio # BambuLab Slicer
     zerotierone # ZeroTier VPN
     openfortivpn # Forti VPN
     openvpn # OpenVPN
@@ -99,6 +96,8 @@
     heimdall # For Samsung Device Management
     # winboat # Win Apps On Linux
     openssl # For Generating SSL Certificates
+    eden # Eden Emulator
+    heroic # Game Launcher
     (python314.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
