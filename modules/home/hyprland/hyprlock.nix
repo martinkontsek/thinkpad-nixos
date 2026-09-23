@@ -42,14 +42,6 @@
           shadow_passes = 2;
         }
       ];
-      auth = {
-        pam.enabled = true;
-        fingerprint = {
-          enabled = true;
-          fingerprint.ready_message = "(Scan fingerprint to unlock)";
-          fingerprint.present_message = "Scanning fingerprint";
-        };
-      };
     };
   };
 }
