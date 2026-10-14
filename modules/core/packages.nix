@@ -98,6 +98,7 @@
     openssl # For Generating SSL Certificates
     eden # Eden Emulator
     heroic # Game Launcher
+    playwright-driver.browsers # For Playwright Web Automation
     (python314.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
