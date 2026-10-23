@@ -99,6 +99,7 @@
     eden # Eden Emulator
     heroic # Game Launcher
     playwright-driver.browsers # For Playwright Web Automation
+    mosh # Mobile Shell
     (python314.withPackages (python-pkgs: with python-pkgs; [
       requests
       flask
