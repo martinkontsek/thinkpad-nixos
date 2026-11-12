@@ -8,7 +8,7 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-custom.url = "github:martinkontsek/nixpkgs/update-winbox-4.4";
+    nixpkgs-custom.url = "github:martinkontsek/nixpkgs/update-winbox-4.5";
     nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix/master";
   };
