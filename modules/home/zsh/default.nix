@@ -55,8 +55,10 @@
       v = "nvim";
       c = "clear";
       finfo = "nh os info";
-      fr = "nh os switch --hostname ${profile}";
-      fu = "nh os switch --hostname ${profile} --update";
+      fr = "nh os boot --hostname ${profile}";
+      frs = "nh os switch --hostname ${profile}";
+      fu = "nh os boot --hostname ${profile} --update";
+      fus = "nh os switch --hostname ${profile} --update";
       zu = "sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/releases/latest/download/install-zaneyos.sh)";
       ncg = "nix-collect-garbage --delete-old && sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
       cat = "bat";
