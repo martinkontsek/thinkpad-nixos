@@ -1,101 +1,118 @@
-{host, ...}: let
+{
+  host,
+  lib,
+  ...
+}: let
   inherit
     (import ../../../hosts/${host}/variables.nix)
     browser
     terminal
     ;
-in {
-  wayland.windowManager.hyprland.settings = {
-    bind = [
-      "SUPER,Return,exec,${terminal}"
-      "SUPER,K,exec,list-keybinds"
-      "SUPER SHIFT,Return,exec,rofi-launcher"
-      "SUPER SHIFT,W,exec,web-search"
-      "SUPER ALT,W,exec,wallsetter"
-      "SUPER SHIFT,N,exec,swaync-client -rs"
-      "SUPER,W,exec,${browser}"
-      "SUPER,Y,exec,kitty -e yazi"
-      "SUPER,E,exec,code"
-      "SUPER,R,exec,emopicker9000"
-      "SUPER,S,exec,screenshootin"
-      "SUPER,D,exec,discord"
-      "SUPER,L,exec,hyprlock"
-      "SUPER,C,exec,hyprpicker -a"
-      "SUPER,G,exec,gedit"
-      "SUPER,T,exec,pypr toggle term"
-      "SUPER,M,exec,pavucontrol"
-      "SUPER,Q,killactive,"
-      "SUPER,P,pseudo,"
-      "SUPER,F,fullscreen,"
-      "SUPER SHIFT,F,togglefloating,"
-      "SUPER ALT,F,workspaceopt, allfloat"
-      "SUPER SHIFT,C,exit,"
-      "SUPER SHIFT,left,movewindow,l"
-      "SUPER SHIFT,right,movewindow,r"
-      "SUPER SHIFT,up,movewindow,u"
-      "SUPER SHIFT,down,movewindow,d"
-      "SUPER SHIFT,h,movewindow,l"
-      "SUPER SHIFT,l,movewindow,r"
-      "SUPER SHIFT,k,movewindow,u"
-      "SUPER SHIFT,j,movewindow,d"
-      "SUPER ALT, left, swapwindow,l"
-      "SUPER ALT, right, swapwindow,r"
-      "SUPER ALT, up, swapwindow,u"
-      "SUPER ALT, down, swapwindow,d"
-      "SUPER ALT, 43, swapwindow,l"
-      "SUPER ALT, 46, swapwindow,r"
-      "SUPER ALT, 45, swapwindow,u"
-      "SUPER ALT, 44, swapwindow,d"
-      "SUPER,left,movefocus,l"
-      "SUPER,right,movefocus,r"
-      "SUPER,up,movefocus,u"
-      "SUPER,down,movefocus,d"
-      "SUPER,h,movefocus,l"
-      "SUPER,l,movefocus,r"
-      "SUPER,k,movefocus,u"
-      "SUPER,j,movefocus,d"
-      "SUPER,1,workspace,1"
-      "SUPER,2,workspace,2"
-      "SUPER,3,workspace,3"
-      "SUPER,4,workspace,4"
-      "SUPER,5,workspace,5"
-      "SUPER,6,workspace,6"
-      "SUPER,7,workspace,7"
-      "SUPER,8,workspace,8"
-      "SUPER,9,workspace,9"
-      "SUPER,0,workspace,10"
-      "SUPER SHIFT,SPACE,movetoworkspace,special"
-      "SUPER,SPACE,togglespecialworkspace"
-      "SUPER SHIFT,1,movetoworkspace,1"
-      "SUPER SHIFT,2,movetoworkspace,2"
-      "SUPER SHIFT,3,movetoworkspace,3"
-      "SUPER SHIFT,4,movetoworkspace,4"
-      "SUPER SHIFT,5,movetoworkspace,5"
-      "SUPER SHIFT,6,movetoworkspace,6"
-      "SUPER SHIFT,7,movetoworkspace,7"
-      "SUPER SHIFT,8,movetoworkspace,8"
-      "SUPER SHIFT,9,movetoworkspace,9"
-      "SUPER SHIFT,0,movetoworkspace,10"
-      "SUPER CONTROL,right,workspace,e+1"
-      "SUPER CONTROL,left,workspace,e-1"
-      "SUPER,mouse_down,workspace, e+1"
-      "SUPER,mouse_up,workspace, e-1"
-      "ALT,Tab,cyclenext"
-      "ALT,Tab,bringactivetotop"
-      ",XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-      ",XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      " ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86AudioPlay, exec, playerctl play-pause"
-      ",XF86AudioPause, exec, playerctl play-pause"
-      ",XF86AudioNext, exec, playerctl next"
-      ",XF86AudioPrev, exec, playerctl previous"
-      ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
-      ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
-    ];
+  lua = lib.generators.mkLuaInline;
+  toLua = lib.generators.toLua {};
 
-    bindm = [
-      "SUPER, mouse:272, movewindow"
-      "SUPER, mouse:273, resizewindow"
-    ];
+  bind = keys: dsp: {_args = [keys (lua dsp)];};
+  exec = keys: cmd: bind keys "hl.dsp.exec_cmd(${toLua cmd})";
+
+  arrowsAndVim = {
+    left = "left";
+    right = "right";
+    up = "up";
+    down = "down";
+    h = "left";
+    l = "right";
+    k = "up";
+    j = "down";
   };
+  perDir = mods: dsp: keys:
+    lib.mapAttrsToList
+    (key: dir: bind "${mods} + ${key}" "${dsp}({ direction = \"${dir}\" })")
+    keys;
+
+  workspaces =
+    lib.concatMap (
+      i: let
+        key = toString (lib.mod i 10);
+      in [
+        (bind "SUPER + ${key}" "hl.dsp.focus({ workspace = ${toString i} })")
+        (bind "SUPER + SHIFT + ${key}" "hl.dsp.window.move({ workspace = ${toString i} })")
+      ]
+    )
+    (lib.range 1 10);
+in {
+  wayland.windowManager.hyprland.settings.bind =
+    [
+      (exec "SUPER + Return" terminal)
+      (exec "SUPER + K" "list-keybinds")
+      (exec "SUPER + SHIFT + Return" "rofi-launcher")
+      (exec "SUPER + SHIFT + W" "web-search")
+      (exec "SUPER + ALT + W" "wallsetter")
+      (exec "SUPER + SHIFT + N" "swaync-client -rs")
+      (exec "SUPER + W" browser)
+      (exec "SUPER + Y" "kitty -e yazi")
+      (exec "SUPER + E" "code")
+      (exec "SUPER + R" "emopicker9000")
+      (exec "SUPER + S" "screenshootin")
+      (exec "SUPER + D" "discord")
+      (exec "SUPER + L" "hyprlock")
+      (exec "SUPER + C" "hyprpicker -a")
+      (exec "SUPER + G" "gedit")
+      (exec "SUPER + T" "pypr toggle term")
+      (exec "SUPER + M" "pavucontrol")
+
+      (bind "SUPER + Q" "hl.dsp.window.close()")
+      (bind "SUPER + P" "hl.dsp.window.pseudo()")
+      (bind "SUPER + F" "hl.dsp.window.fullscreen()")
+      (bind "SUPER + SHIFT + F" ''hl.dsp.window.float({ action = "toggle" })'')
+      (bind "SUPER + SHIFT + C" "hl.dsp.exit()")
+
+      (bind "SUPER + SHIFT + SPACE" ''hl.dsp.window.move({ workspace = "special:special" })'')
+      (bind "SUPER + SPACE" "hl.dsp.workspace.toggle_special()")
+      (bind "SUPER + CONTROL + right" ''hl.dsp.focus({ workspace = "e+1" })'')
+      (bind "SUPER + CONTROL + left" ''hl.dsp.focus({ workspace = "e-1" })'')
+      (bind "SUPER + mouse_down" ''hl.dsp.focus({ workspace = "e+1" })'')
+      (bind "SUPER + mouse_up" ''hl.dsp.focus({ workspace = "e-1" })'')
+
+      # Two dispatchers on one key -> one Lua function
+      {
+        _args = [
+          "ALT + Tab"
+          (lua ''
+            function()
+              hl.dispatch(hl.dsp.window.cycle_next())
+              hl.dispatch(hl.dsp.window.bring_to_top())
+            end'')
+        ];
+      }
+
+      # Media keys. Add { locked = true; repeating = true; } as a third _args entry
+      # if you want them to work on the lock screen / repeat while held.
+      (exec "XF86AudioRaiseVolume" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
+      (exec "XF86AudioLowerVolume" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
+      (exec "XF86AudioMute" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+      (exec "XF86AudioPlay" "playerctl play-pause")
+      (exec "XF86AudioPause" "playerctl play-pause")
+      (exec "XF86AudioNext" "playerctl next")
+      (exec "XF86AudioPrev" "playerctl previous")
+      (exec "XF86MonBrightnessDown" "brightnessctl set 5%-")
+      (exec "XF86MonBrightnessUp" "brightnessctl set +5%")
+
+      # Former bindm
+      {_args = ["SUPER + mouse:272" (lua "hl.dsp.window.drag()") {mouse = true;}];}
+      {_args = ["SUPER + mouse:273" (lua "hl.dsp.window.resize()") {mouse = true;}];}
+    ]
+    ++ perDir "SUPER + SHIFT" "hl.dsp.window.move" arrowsAndVim
+    ++ perDir "SUPER" "hl.dsp.focus" arrowsAndVim
+    ++ perDir "SUPER + ALT" "hl.dsp.window.swap" {
+      left = "left";
+      right = "right";
+      up = "up";
+      down = "down";
+      # keycodes for h / l / k / j
+      "code:43" = "left";
+      "code:46" = "right";
+      "code:45" = "up";
+      "code:44" = "down";
+    }
+    ++ workspaces;
 }

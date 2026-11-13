@@ -1,635 +1,359 @@
-{host, ...}: let
-  hostVars = import ../../../hosts/${host}/variables.nix;
-  extraMonitorSettings = hostVars.extraMonitorSettings or "";
-  hyprMonitorsV2 = hostVars.hyprMonitorsV2 or [];
-  monitorLines = builtins.concatStringsSep "\n" (
-    map
-    (
-      m:
-        if (m.enabled or true)
-        then "monitor = ${m.output},${(m.mode or "preferred")},${(m.position or "auto")},${toString (m.scale or 1)}"
-        else "monitor = ${m.output},disable"
-    )
-    hyprMonitorsV2
-  );
-in {
-  wayland.windowManager.hyprland = {
-    extraConfig = ''
-        ${monitorLines}
-        ${extraMonitorSettings}
-
-      # Set float and centering for diaglog boxes (I hope)
-      rule = float(true), match:modal:1
-      rule = center(true), match:modal:1
-
-        windowrule {
-          name = WinBoat
-          float = on
-          match:class = ^(winboat)$
-        }
-
-        windowrule {
-          name = FreeRDP
-          float = on
-          match:class = ^(FreeRDP)$
-        }
-
-        windowrule {
-          name = com.winboat.app
-          float = on
-          match:class = ^(com.winboat.app)$
-        }
-
-        windowrule {
-          name = xwayland
-          match:xwayland = 1
-          no_blur = on
-        }
-
-        windowrule {
-          name = Resolve
-          match:class = ^(\bresolve\b)$
-          match:xwayland = 1
-          no_blur = on
-        }
-
-        windowrule {
-          name = foot-floating
-          match:class = ^(foot-floating)$
-          center = on
-          size = (monitor_w*0.5) (monitor_h*0.40)
-          float = on
-          size = 60% = 60%
-          no_blur = off
-        }
-
-        windowrule {
-          name = emacs-floating
-          match:initial_title = ^(emacs-floating)$
-          center = on
-          float = on
-          size = 70% = 70%
-        }
-
-        windowrule {
-          name = boxbuddy
-          match:title = ^(BoxBuddy)$
-          center = on
-          float = on
-          size = 70% = 70%
-        }
-
-        windowrule {
-          name = gearlever
-          match:title = ^(it.mijorus.gearlever)$
-          center = on
-          float = on
-        }
-
-        windowrule {
-          name = Bazaar
-          match:class = ^(io.github.kolunmi.Bazaar)$
-          center = on
-          float = on
-          size = 70% = 70%
-        }
-
-        windowrule {
-          name = mpv
-          match:class = mpv
-          content = none
-        }
-
-        windowrule {
-          name = Thunar
-          match:class = ^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$
-          tag = +file-manager
-        }
-
-        windowrule {
-          name = Terminals
-          match:class = ^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty|kitty-dropterm)$
-          tag = +terminal
-        }
-
-        windowrule {
-          name = Brave-browser
-          match:class = ^(Brave-browser(-beta|-dev|-unstable)?)$
-          tag = +browser
-        }
-
-        windowrule {
-          name = Firefox
-          match:class = ^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$
-          tag = +browser
-        }
-
-        windowrule {
-          name = Google-chrome
-          match:class = ^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$
-          tag = +browser
-        }
-
-        windowrule {
-          name = Thorium-browser
-          match:class = ^([Tt]horium-browser|[Cc]achy-browser)$
-          tag = +browser
-        }
-
-        windowrule {
-          name = VideoLan
-          match:class = ^(vlc|mpv)$
-          tag = +video
-        }
-
-        windowrule {
-          name = vscodium
-          match:class = ^(codium|codium-url-handler|VSCodium)$
-          tag = +projects
-        }
-
-        windowrule {
-          name = vscode
-          match:class = ^(VSCode|code-url-handler)$
-          tag = +projects
-        }
-
-        windowrule {
-          name = Discord
-          match:class = ^([Dd]iscord|[Dd]iscordcanary|[Ww]ebCord|[Vv]esktop)$
-          tag = +im
-        }
-
-        windowrule {
-          name = Ferdium
-          match:class = ^([Ff]erdium)$
-          center = on
-          float = on
-          size = 60% = 70%
-          tag = +im
-        }
-
-        windowrule {
-          name = Whatsapp
-          match:class = ^([Ww]hatsapp-for-linux)$
-          tag = +im
-        }
-
-        windowrule {
-          name = Telegram-desktop
-          match:class = ^(org.telegram.desktop|io.github.tdesktop_x64.TDesktop)$
-          tag = +im
-        }
-
-        windowrule {
-          name = teams-for-linux
-          match:class = ^(teams-for-linux)$
-          tag = +im
-        }
-
-        windowrule {
-          name = obs-studio
-          match:class = ^(com.obsproject.Studio)$
-          tag = +obs
-        }
-
-        windowrule {
-          name = gamescope
-          match:class = ^(gamescope)$
-          tag = +games
-        }
-
-        windowrule {
-          name = steam-app
-          match:class = ^(steam_app\\d+)$
-          tag = +games
-        }
-
-        windowrule {
-          name = Steam
-          match:class = ^([Ss]team)$
-          tag = +gamestore
-        }
-
-        windowrule {
-          name = Lutris
-          match:title = ^([Ll]utris)$
-          tag = +gamestore
-        }
-
-        windowrule {
-          name = heroicgameslauncher
-          match:class = ^(com.heroicgameslauncher.hgl)$
-          tag = +gamestore
-        }
-
-        windowrule {
-          name = gnome-disks
-          match:class = ^(gnome-disks|wihotspot(-gui)?)$
-          tag = +settings
-        }
-
-        windowrule {
-          name = rofi
-          match:class = ^([Rr]ofi)$
-          tag = +settings
-          no_blur = off
-        }
-
-        windowrule {
-          name = FileRoller
-          match:class = ^(file-roller|org.gnome.FileRoller)$
-          tag = +settings
-        }
-
-        windowrule {
-          name = NetworkManger
-          match:class = ^(nm-applet|nm-connection-editor|blueman-manager)$
-          tag = +settings
-        }
-
-        windowrule {
-          name = PlusAudio
-          match:class = ^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$
-          center = on
-          tag = +settings
-          no_blur = off
-        }
-
-        windowrule {
-          name = nwg-look
-          match:class = ^(nwg-look|qt5ct|qt6ct|[Yy]ad)$
-          tag = +settings
-        }
-
-        windowrule {
-          name = xdg-desktop-portal-gtk
-          match:class = (xdg-desktop-portal-gtk)
-          tag = +settings
-        }
-
-        windowrule {
-          name = blueman
-          match:class = (.blueman-manager-wrapped)
-          tag = +settings
-        }
-
-        windowrule {
-          name = nwg-displays
-          match:class = (nwg-displays)
-          tag = +settings
-        }
-
-        windowrule {
-          name = Picture-in-Picture
-          match:title = ^(Picture-in-Picture)$
-          float = on
-          move = 72% = 7%
-          opacity = 0.95 = 0.75
-          pin = 0
-        }
-
-        windowrule {
-          name = ThunarFileMgr
-          match:class = ([Tt]hunar)
-          match:title = negative:(.*[Tt]hunar.*)
-          center = on
-          float = on
-        }
-
-        windowrule {
-          name = Authentication-Required
-          match:title = ^(Authentication Required)$
-          center = on
-          float = on
-        }
-
-        windowrule {
-          name = IdleInhibit-fullscreen-1
-          match:class = ^(*)$
-          idle_inhibit = fullscreen
-        }
-
-        windowrule {
-          name = IdleInhibit-fullscreen-2
-          match:title = ^(*)$
-          idle_inhibit = fullscreen
-        }
-
-        windowrule {
-          name = IdleInhibit-fullscreen-3
-          match:fullscreen = 1
-          idle_inhibit = fullscreen
-        }
-
-        windowrule {
-          name = Settings-Tag
-          match:tag = settings*
-          float = on
-          opacity = 0.8 = 0.7
-          size = 70% = 70%
-          no_blur = off
-        }
-
-        windowrule {
-          name = WayPaper
-          match:class = ^([Ww]aypaper)$
-          float = on
-          no_blur = off
-        }
-
-        windowrule {
-          name = Remmina
-          match:class = ^(org.remmina.Remmina)$
-          float = on
-        }
-
-        windowrule {
-          name = QS-Wallpapers
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Wallpapers)$
-          border_size = 0
-          float = on
-          no_blur = on
-          rounding = 12
-        }
-
-        windowrule {
-          name = QA-Video-Wallpapers
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Video Wallpapers)$
-          border_size = 0
-          center = on
-          float = on
-          no_blur = on
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-wlogout
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(qs-wlogout)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 1.0 = 1.0
-          rounding = 20
-        }
-
-        windowrule {
-          name = QA-Panels
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Panels)$
-          center = on
-          float = on
-          no_blur = on
-          rounding = 12
-          size = (monitor_w*0.6) (monitor_h*0.60)
-        }
-
-        windowrule {
-          name = QS-Hyprland-Keybinds
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Hyprland Keybinds)$
-          border_size = 0
-          center = on
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          float = on
-          opacity = 0.95 = 0.95
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Niri-Keybinds
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Niri Keybinds)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-i3-Keybinds
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(i3 Keybinds)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-DWM-Keybinds
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(DWM Keybinds)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = EMACs-Leader
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Emacs Leader Keybinds)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Kitty-Config
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Kitty Configuration)$
-          border_size = 0
-          center = on
-          float = on
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          opacity = 0.95 = 0.95
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Wezterm-Config
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(WezTerm Configuration)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Yazi-Config
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Yazi Configuration)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.85
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Cheatsheets
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Cheatsheets Viewer)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = QS-Documentation-Viewer
-          match:class = ^(org\\.qt-project\\.qml)$
-          match:title = ^(Documentation Viewer)$
-          border_size = 0
-          center = on
-          float = on
-          opacity = 0.95 = 0.95
-          size = (monitor_w*0.6) (monitor_h*0.60)
-          rounding = 12
-        }
-
-        windowrule {
-          name = Clapper
-          match:class = ^(com.github.rafostar.Clapper)$
-          float = on
-        }
-
-        windowrule {
-          name = netpeek
-          match:class = ^(io.github.zingytomato.netpeek)$
-          center = on
-          float = on
-        }
-
-        windowrule {
-          name = codium-url-handler
-          match:class = (codium|codium-url-handler|VSCodium)
-          match:title = negative:(.*codium.*|.*VSCodium.*)
-          float = on
-        }
-
-        windowrule {
-          name = heroicgameslauncher-1
-          match:class = ^(com.heroicgameslauncher.hgl)$
-          match:title = negative:(Heroic Games Launcher)
-          float = on
-        }
-
-        windowrule {
-          name = Steam
-          match:class = ^([Ss]team)$
-          match:title = negative:^([Ss]team)$
-          float = on
-        }
-
-        windowrule {
-          name = Add-Folder
-          match:initial_title = (Add Folder to Workspace)
-          float = on
-          size = (monitor_w*0.5) (monitor_h*0.40)
-        }
-
-        windowrule {
-          name = Open-File
-          match:initial_title = (Open Files)
-          float = on
-          size = 70% = 60%
-        }
-
-        windowrule {
-          name = Wants-to-Save
-          match:initial_title = (wants to save)
-          float = on
-        }
-
-        windowrule {
-          name = Browsers
-          match:tag = browser*
-          opacity = 1.0 = 1.0
-          workspace = 2
-        }
-
-        windowrule {
-          name = Video
-          match:tag = video*
-          opacity = 1.0 = 1.0
-        }
-
-        windowrule {
-          name = Projects
-          match:tag = projects*
-          opacity = 0.9 = 0.8
-        }
-
-        windowrule {
-          name = Instant-Messaging
-          match:tag = im*
-          opacity = 0.94 = 0.86
-          workspace = 3
-        }
-
-        windowrule {
-          name = File-Managers
-          match:tag = file-manager*
-          opacity = 0.9 = 0.8
-        }
-
-        windowrule {
-          name = Terminals-opacity
-          match:tag = terminal*
-          opacity = 0.94 = 0.7
-          no_blur = off
-        }
-
-        windowrule {
-          name = windowrule-77
-          match:class = ^(gedit|org.gnome.TextEditor|mousepad)$
-          opacity = 0.8 = 0.7
-        }
-
-        windowrule {
-          name = windowrule-78
-          match:class = ^(seahorse)$ # gnome-keyring gui
-          opacity = 0.9 = 0.8
-        }
-
-        windowrule {
-          name = windowrule-79
-          match:tag = games*
-          no_blur = on
-        }
-
-        windowrule {
-          name = windowrule-80
-          match:class = org.remmina.Reminna
-          workspace = 8
-        }
-
-        windowrule {
-          name = windowrule-81
-          match:tag = obs*
-          workspace = 10
-        }
-
-    '';
+# Monitors moved to hyprland.nix (they were defined in both files before).
+{...}: let
+  # Size/move are math expressions now; percentages like "70%" are not accepted.
+  mw = x: y: "monitor_w*${x} monitor_h*${y}";
+  floatC = {
+    float = true;
+    center = true;
   };
+  tagRule = name: class: tag: {
+    inherit name;
+    match.class = class;
+    tag = "+${tag}";
+  };
+  qsClass = "^(org\\.qt-project\\.qml)$";
+  qsDialog = name: title: opacity: {
+    inherit name opacity;
+    match = {
+      class = qsClass;
+      title = "^(${title})$";
+    };
+    float = true;
+    center = true;
+    border_size = 0;
+    rounding = 12;
+    size = mw "0.6" "0.6";
+  };
+in {
+  wayland.windowManager.hyprland.settings.window_rule = [
+    # Float and center dialog boxes
+    ({
+        name = "modal-dialogs";
+        match.modal = true;
+      }
+      // floatC)
+
+    {
+      name = "WinBoat";
+      match.class = "^(winboat)$";
+      float = true;
+    }
+    {
+      name = "FreeRDP";
+      match.class = "^(FreeRDP)$";
+      float = true;
+    }
+    {
+      name = "com.winboat.app";
+      match.class = "^(com.winboat.app)$";
+      float = true;
+    }
+    {
+      name = "xwayland";
+      match.xwayland = true;
+      no_blur = true;
+    }
+    {
+      name = "Resolve";
+      match = {
+        class = "^(\\bresolve\\b)$";
+        xwayland = true;
+      };
+      no_blur = true;
+    }
+    ({
+        name = "foot-floating";
+        match.class = "^(foot-floating)$";
+        size = mw "0.5" "0.4";
+      }
+      // floatC)
+    ({
+        name = "emacs-floating";
+        match.initial_title = "^(emacs-floating)$";
+        size = mw "0.7" "0.7";
+      }
+      // floatC)
+    ({
+        name = "boxbuddy";
+        match.title = "^(BoxBuddy)$";
+        size = mw "0.7" "0.7";
+      }
+      // floatC)
+    ({
+        name = "gearlever";
+        match.title = "^(it.mijorus.gearlever)$";
+      }
+      // floatC)
+    ({
+        name = "Bazaar";
+        match.class = "^(io.github.kolunmi.Bazaar)$";
+        size = mw "0.7" "0.7";
+      }
+      // floatC)
+    {
+      name = "mpv";
+      match.class = "mpv";
+      content = "none";
+    }
+
+    # ---- Tags ----
+    (tagRule "Thunar" "^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$" "file-manager")
+    (tagRule "Terminals" "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty|kitty-dropterm)$" "terminal")
+    (tagRule "Brave-browser" "^(Brave-browser(-beta|-dev|-unstable)?)$" "browser")
+    (tagRule "Firefox" "^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$" "browser")
+    (tagRule "Google-chrome" "^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$" "browser")
+    (tagRule "Thorium-browser" "^([Tt]horium-browser|[Cc]achy-browser)$" "browser")
+    (tagRule "VideoLan" "^(vlc|mpv)$" "video")
+    (tagRule "vscodium" "^(codium|codium-url-handler|VSCodium)$" "projects")
+    (tagRule "vscode" "^(VSCode|code-url-handler)$" "projects")
+    (tagRule "Discord" "^([Dd]iscord|[Dd]iscordcanary|[Ww]ebCord|[Vv]esktop)$" "im")
+    ({
+        name = "Ferdium";
+        match.class = "^([Ff]erdium)$";
+        size = mw "0.6" "0.7";
+        tag = "+im";
+      }
+      // floatC)
+    (tagRule "Whatsapp" "^([Ww]hatsapp-for-linux)$" "im")
+    (tagRule "Telegram-desktop" "^(org.telegram.desktop|io.github.tdesktop_x64.TDesktop)$" "im")
+    (tagRule "teams-for-linux" "^(teams-for-linux)$" "im")
+    (tagRule "obs-studio" "^(com.obsproject.Studio)$" "obs")
+    (tagRule "gamescope" "^(gamescope)$" "games")
+    (tagRule "steam-app" "^(steam_app\\d+)$" "games")
+    (tagRule "Steam" "^([Ss]team)$" "gamestore")
+    {
+      name = "Lutris";
+      match.title = "^([Ll]utris)$";
+      tag = "+gamestore";
+    }
+    (tagRule "heroicgameslauncher" "^(com.heroicgameslauncher.hgl)$" "gamestore")
+    (tagRule "gnome-disks" "^(gnome-disks|wihotspot(-gui)?)$" "settings")
+    (tagRule "rofi" "^([Rr]ofi)$" "settings")
+    (tagRule "FileRoller" "^(file-roller|org.gnome.FileRoller)$" "settings")
+    (tagRule "NetworkManager" "^(nm-applet|nm-connection-editor|blueman-manager)$" "settings")
+    {
+      name = "PlusAudio";
+      match.class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$";
+      center = true;
+      tag = "+settings";
+    }
+    (tagRule "nwg-look" "^(nwg-look|qt5ct|qt6ct|[Yy]ad)$" "settings")
+    (tagRule "xdg-desktop-portal-gtk" "(xdg-desktop-portal-gtk)" "settings")
+    (tagRule "blueman" "(.blueman-manager-wrapped)" "settings")
+    (tagRule "nwg-displays" "(nwg-displays)" "settings")
+
+    # ---- Floating / sizing ----
+    {
+      name = "Picture-in-Picture";
+      match.title = "^(Picture-in-Picture)$";
+      float = true;
+      move = mw "0.72" "0.07";
+      opacity = "0.95 0.75";
+      # pin = true;  # uncomment to keep PiP on every workspace
+    }
+    ({
+        name = "ThunarFileMgr";
+        match = {
+          class = "([Tt]hunar)";
+          title = "negative:(.*[Tt]hunar.*)";
+        };
+      }
+      // floatC)
+    ({
+        name = "Authentication-Required";
+        match.title = "^(Authentication Required)$";
+      }
+      // floatC)
+    {
+      name = "IdleInhibit-fullscreen";
+      match.class = ".*";
+      idle_inhibit = "fullscreen";
+    }
+    {
+      name = "Settings-Tag";
+      match.tag = "settings*";
+      float = true;
+      opacity = "0.8 0.7";
+      size = mw "0.7" "0.7";
+    }
+    {
+      name = "WayPaper";
+      match.class = "^([Ww]aypaper)$";
+      float = true;
+    }
+    {
+      name = "Remmina";
+      match.class = "^(org.remmina.Remmina)$";
+      float = true;
+    }
+
+    # ---- Quickshell windows ----
+    {
+      name = "QS-Wallpapers";
+      match = {
+        class = qsClass;
+        title = "^(Wallpapers)$";
+      };
+      border_size = 0;
+      float = true;
+      no_blur = true;
+      rounding = 12;
+    }
+    ({
+        name = "QS-Video-Wallpapers";
+        match = {
+          class = qsClass;
+          title = "^(Video Wallpapers)$";
+        };
+        border_size = 0;
+        no_blur = true;
+        rounding = 12;
+      }
+      // floatC)
+    ({
+        name = "QS-wlogout";
+        match = {
+          class = qsClass;
+          title = "^(qs-wlogout)$";
+        };
+        border_size = 0;
+        opacity = "1.0 1.0";
+        rounding = 20;
+      }
+      // floatC)
+    ({
+        name = "QS-Panels";
+        match = {
+          class = qsClass;
+          title = "^(Panels)$";
+        };
+        no_blur = true;
+        rounding = 12;
+        size = mw "0.6" "0.6";
+      }
+      // floatC)
+    (qsDialog "QS-Hyprland-Keybinds" "Hyprland Keybinds" "0.95 0.95")
+    (qsDialog "QS-Niri-Keybinds" "Niri Keybinds" "0.95 0.95")
+    (qsDialog "QS-i3-Keybinds" "i3 Keybinds" "0.95 0.95")
+    (qsDialog "QS-DWM-Keybinds" "DWM Keybinds" "0.95 0.95")
+    (qsDialog "QS-Emacs-Leader" "Emacs Leader Keybinds" "0.95 0.95")
+    (qsDialog "QS-Kitty-Config" "Kitty Configuration" "0.95 0.95")
+    (qsDialog "QS-Wezterm-Config" "WezTerm Configuration" "0.95 0.95")
+    (qsDialog "QS-Yazi-Config" "Yazi Configuration" "0.95 0.85")
+    (qsDialog "QS-Cheatsheets" "Cheatsheets Viewer" "0.95 0.95")
+    (qsDialog "QS-Documentation-Viewer" "Documentation Viewer" "0.95 0.95")
+
+    # ---- Misc floating ----
+    {
+      name = "Clapper";
+      match.class = "^(com.github.rafostar.Clapper)$";
+      float = true;
+    }
+    ({
+        name = "netpeek";
+        match.class = "^(io.github.zingytomato.netpeek)$";
+      }
+      // floatC)
+    {
+      name = "codium-url-handler";
+      match = {
+        class = "(codium|codium-url-handler|VSCodium)";
+        title = "negative:(.*codium.*|.*VSCodium.*)";
+      };
+      float = true;
+    }
+    {
+      name = "heroic-float";
+      match = {
+        class = "^(com.heroicgameslauncher.hgl)$";
+        title = "negative:(Heroic Games Launcher)";
+      };
+      float = true;
+    }
+    # Must not be named "Steam": rules with the same name merge in Lua.
+    {
+      name = "Steam-float";
+      match = {
+        class = "^([Ss]team)$";
+        title = "negative:^([Ss]team)$";
+      };
+      float = true;
+    }
+    {
+      name = "Add-Folder";
+      match.initial_title = "(Add Folder to Workspace)";
+      float = true;
+      size = mw "0.5" "0.4";
+    }
+    {
+      name = "Open-File";
+      match.initial_title = "(Open Files)";
+      float = true;
+      size = mw "0.7" "0.6";
+    }
+    {
+      name = "Wants-to-Save";
+      match.initial_title = "(wants to save)";
+      float = true;
+    }
+
+    # ---- Tag-based opacity / workspaces ----
+    {
+      name = "Browsers";
+      match.tag = "browser*";
+      opacity = "1.0 1.0";
+      workspace = "2";
+    }
+    {
+      name = "Video";
+      match.tag = "video*";
+      opacity = "1.0 1.0";
+    }
+    {
+      name = "Projects";
+      match.tag = "projects*";
+      opacity = "0.9 0.8";
+    }
+    {
+      name = "Instant-Messaging";
+      match.tag = "im*";
+      opacity = "0.94 0.86";
+      workspace = "3";
+    }
+    {
+      name = "File-Managers";
+      match.tag = "file-manager*";
+      opacity = "0.9 0.8";
+    }
+    {
+      name = "Terminals-opacity";
+      match.tag = "terminal*";
+      opacity = "0.94 0.7";
+    }
+    {
+      name = "text-editors";
+      match.class = "^(gedit|org.gnome.TextEditor|mousepad)$";
+      opacity = "0.8 0.7";
+    }
+    {
+      name = "seahorse"; # gnome-keyring gui
+      match.class = "^(seahorse)$";
+      opacity = "0.9 0.8";
+    }
+    {
+      name = "games-no-blur";
+      match.tag = "games*";
+      no_blur = true;
+    }
+    {
+      name = "remmina-workspace";
+      match.class = "org.remmina.Remmina"; # was misspelled "Reminna"
+      workspace = "8";
+    }
+    {
+      name = "obs-workspace";
+      match.tag = "obs*";
+      workspace = "10";
+    }
+  ];
 }

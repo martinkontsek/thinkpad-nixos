@@ -1,24 +1,38 @@
-{...}: {
-  wayland.windowManager.hyprland.settings = {
-    # name "moving"
-    # credit https://github.com/mylinuxforwork/dotfiles
-    animations = {
+{...}: let
+  curve = name: x1: y1: x2: y2: {
+    _args = [
+      name
+      {
+        type = "bezier";
+        points = [[x1 y1] [x2 y2]];
+      }
+    ];
+  };
+  anim = leaf: speed: bezier: extra:
+    {
+      inherit leaf speed bezier;
       enabled = true;
-      bezier = [
-        "overshot, 0.05, 0.9, 0.1, 1.05"
-        "smoothOut, 0.5, 0, 0.99, 0.99"
-        "smoothIn, 0.5, -0.5, 0.68, 1.5"
-      ];
-      animation = [
-        "windows, 1, 5, overshot, slide"
-        "windowsOut, 1, 3, smoothOut"
-        "windowsIn, 1, 3, smoothOut"
-        "windowsMove, 1, 4, smoothIn, slide"
-        "border, 1, 5, default"
-        "fade, 1, 5, smoothIn"
-        "fadeDim, 1, 5, smoothIn"
-        "workspaces, 1, 6, default"
-      ];
-    };
+    }
+    // extra;
+in {
+  # name "moving"
+  # credit https://github.com/mylinuxforwork/dotfiles
+  wayland.windowManager.hyprland.settings = {
+    config.animations.enabled = true;
+    curve = [
+      (curve "overshot" 0.05 0.9 0.1 1.05)
+      (curve "smoothOut" 0.5 0 0.99 0.99)
+      (curve "smoothIn" 0.5 (-0.5) 0.68 1.5)
+    ];
+    animation = [
+      (anim "windows" 5 "overshot" {style = "slide";})
+      (anim "windowsOut" 3 "smoothOut" {})
+      (anim "windowsIn" 3 "smoothOut" {})
+      (anim "windowsMove" 4 "smoothIn" {style = "slide";})
+      (anim "border" 5 "default" {})
+      (anim "fade" 5 "smoothIn" {})
+      (anim "fadeDim" 5 "smoothIn" {})
+      (anim "workspaces" 6 "default" {})
+    ];
   };
 }
